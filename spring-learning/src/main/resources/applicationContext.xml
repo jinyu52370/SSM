@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--region dateFormat-->
+    <bean id="dateFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg value="yyyy-MM-dd" />
+    </bean>
+    <!--endregion-->
+
+    <!--region user-->
+    <bean id="user" class="com.jjj.entity.User">
+        <property name="id" value="0"/>
+        <property name="name" value="jjj"/>
+        <property name="age" value="100"/>
+        <property name="birthday">
+            <bean factory-bean="dateFormat" factory-method="parse">
+                <constructor-arg value="1999-05-07"/>
+            </bean>
+        </property>
+        <property name="password" value="root"/>
+        <property name="money" value="100.3"/>
+        <property name="address" value="xian"/>
+    </bean>
+
+    <bean id="user1" class="com.jjj.entity.User">
+        <property name="name" value="user1"/>
+    </bean>
+
+    <bean
+        id="user2" class="com.jjj.entity.User"
+        p:id="100"
+        p:age="99"
+        p:name="hhh">
+        <property name="birthday">
+            <bean factory-bean="dateFormat" factory-method="parse">
+                <constructor-arg value="1999-05-07"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="user3" class="com.jjj.entity.User">
+        <property name="name"><null/></property>
+        <property name="birthday"><null/></property>
+        <property name="password"><null/></property>
+        <property name="address"><null/></property>
+    </bean>
+    <!--endregion-->
+
+    <!--region student-->
+    <bean id="student" class="com.jjj.entity.Student">
+        <property name="user">
+            <bean class="com.jjj.entity.User"
+                  p:id="100"
+                  p:age="99"
+                  p:name="hhh"
+            />
+        </property>
+        <property name="school" value="仙宫"/>
+    </bean>
+
+    <bean id="student1" class="com.jjj.entity.Student">
+        <property name="classes">
+            <list>
+                <value>数电</value>
+                <value>计组</value>
+            </list>
+        </property>
+    </bean>
+
+    <util:list id="classes">
+        <value>数电</value>
+        <value>计组</value>
+        <value>高数</value>
+    </util:list>
+
+    <util:map id="users">
+        <entry key="key2" value="2"/>
+        <entry key="key3" value="3"/>
+    </util:map>
+
+    <bean id="student2" class="com.jjj.entity.Student">
+        <property name="classes" ref="classes"/>
+        <property name="users" ref="users"/>
+    </bean>
+
+    <!--depends-on：依赖某个bean，达成先后创建的效果-->
+    <bean id="user4" class="com.jjj.entity.User"/>
+    <bean id="student3" class="com.jjj.entity.Student" depends-on="user4"/>
+    <!--endregion-->
+
+    <!--region air-->
+    <!--1.静态工厂-->
+    <bean id="air1" class="com.jjj.factory.AirStaticFactory" factory-method="getAir">
+        <constructor-arg name="jzName" value="air1的机长"/>
+    </bean>
+
+    <!--
+    2.实例工厂
+        1.配置实例工厂对象
+        2.配置生产对象，并指定生产对象由哪个工厂创建
+            factory-bean：指定生产对象创建时使用哪个工厂
+            factory-method：指定调用工厂的那个方法
+    -->
+    <bean id="airInstanceFactory" class="com.jjj.factory.AirInstanceFactory"/>
+    <bean id="air2" class="com.jjj.entity.Air" factory-bean="airInstanceFactory" factory-method="getAir">
+        <constructor-arg name="jzName" value="air2的机长"/>
+    </bean>
+
+    <!--3.FactoryBean：是spring规定的一个接口，只要实现这个接口，spring都认为实现类是一个工厂-->
+    <bean id="airFactoryBeanImpl" class="com.jjj.factory.AirFactoryBeanImpl"/>
+    <!--endregion-->
+
+    <!--region dataSource-->
+    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
+
+    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"-->
+        <!--p:username="${prop.userName}"-->
+        <!--p:password="${prop.password}"-->
+        <!--p:url="${prop.url}"-->
+        <!--p:driverClassName="${prop.driverClassName}"-->
+    <!--/>-->
+    <!--endregion-->
+
+    <!--region aop-->
+    <aop:aspectj-autoproxy/>
+    <!--<aop:config >-->
+        <!--<aop:aspect ref="commonThingsAspect">-->
+            <!--<aop:pointcut id="pointcut" expression="execution(* com.jjj.mything.service.impl.*.*(..))"/>-->
+            <!--<aop:after-returning method="afterReturning" pointcut-ref="pointcut"/>-->
+            <!--<aop:after-throwing method="afterThrowing" pointcut-ref="pointcut" throwing="e"/>-->
+            <!--<aop:before method="qichuang" pointcut-ref="pointcut"/>-->
+            <!--<aop:before method="chuanyi" pointcut-ref="pointcut"/>-->
+            <!--<aop:after method="tuoyi" pointcut-ref="pointcut"/>-->
+            <!--<aop:after method="shuijiao" pointcut-ref="pointcut"/>-->
+            <!--<aop:around method="huanrao" pointcut-ref="pointcut"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+    <!--endregion-->
+
+    <!--region 创建带有生命周期方法的bean-->
+    <!--
+    生命周期:bean的创建到销毀
+        ioc容器中注册的bean;
+            1> 单例bean，容器启动的时候就会创建好，容器关闭也会销毁创建的bean
+            2> 多实例bean，获取的时候才创建;
+        我们可以为bean自定义一些生命周期方法; spring在创建或者销毁的时候就会调用指定的方法;
+        自定义初始化方法和销毁方法; The method must have no arguments, but may throw any exception
+    -->
+    <bean id="userLifeCycle" class="com.jjj.entity.User" init-method="myInit" destroy-method="myDestroy"/>
+    <bean id="userLifeCyclePrototype" class="com.jjj.entity.User" init-method="myInit" destroy-method="myDestroy" scope="prototype"/>
+    <!--endregion-->
+
+    <!--region 测试bean的后置处理器BeanPostProcessor-->
+    <!--后置处理器：可以再bean的初始化向后调用方法-->
+    <bean id="beanPostProcessorImpl" class="com.jjj.beanpostprocessor.service.impl.BeanPostProcessorImpl"/>
+    <!--endregion-->
+
+    <!--region autowire-->
+    <!--
+    为Student里面的自定义类型(User)的属性赋值
+        property:手动赋值
+        自动赋值（自动装配）:
+            autowire="default/no"：不自动装配，不自动为user属性赋值
+            autowire="byName"：按照名字
+                private User user;
+                在容器中找到beanId为此属性名(user)的bean，然后赋值：user = xmlCtx.getBean("user");
+            autowire="byType"：按照类型
+                容器中只能有一个待自动装配的bean
+                user = xmlCtx.getBean(User.class);
+            autowire="constructor"：按照构造器
+                1.先按照有参构造器参数的类型进行装配（成功就赋值）;没有就直接为组件装配null
+                2.如果按照类型找到了多个;参数的名作为id继续匹配;找到就装配;找不到就null
+                3.不会报错
+    -->
+    <bean id="userAutowire" class="com.jjj.entity.User"
+        p:name="自动装配"
+    />
+    <bean id="studentAutowire" class="com.jjj.entity.Student" autowire="byName"/>
+    <!--endregion-->
+</beans>

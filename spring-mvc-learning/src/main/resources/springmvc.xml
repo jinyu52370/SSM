@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="com.jjj"/>
+
+    <!--配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp"
+          p:viewClass="org.springframework.web.servlet.view.JstlView"
+    />
+
+    <!--自定义视图解析器
+        order：默认的视图解析器的优先级最低：Integer.MAX_VALUE
+    -->
+    <bean id="mySeTuViewResolver" class="com.jjj.view.MySeTuViewResolver"
+        p:order="1"
+    />
+
+    <!--让SpringMVC管理国际化资源文件：配置一个资源文件管理器
+    注意：id必须为：messageSource
+    -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
+        p:basename="i18n"
+    />
+
+    <!--发送一个请求 login 直接来到WEB-INF/jsp/login.jsp页面
+        mvc名称空间下有一个请求映射标签
+        path：指定哪个请求
+    -->
+    <mvc:view-controller path="/hello/login" view-name="login"/>
+    <!--开启mvc注解驱动模式后，mvc:view-controller不会使其他方法失效-->
+    <!--<mvc:annotation-driven/>-->
+
+    <bean id="dateFormat" class="java.text.SimpleDateFormat">
+        <constructor-arg value="yyyy-MM-dd"/>
+    </bean>
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+</beans>
