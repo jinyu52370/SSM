@@ -24,10 +24,43 @@
         <tomcat.version>9.0.26</tomcat.version>
         <jstl.version>1.2</jstl.version>
         <hibernate-validator.version>6.1.2.Final</hibernate-validator.version>
+        <jackson.version>2.10.0</jackson.version>
+        <fileupload.version>1.4</fileupload.version>
+        <commons-io.version>2.6</commons-io.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${fileupload.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
             <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
             <dependency>
                 <groupId>org.hibernate.validator</groupId>

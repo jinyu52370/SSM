@@ -44,6 +44,7 @@
             <!--<bean class="com.jjj.component.MyStringToUser"/>-->
         <!--</property>-->
     <!--</bean>-->
+
     <!--使用FormattingConversionServiceFactoryBean，既具有自定义的类型转换，也可以格式化-->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">

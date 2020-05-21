@@ -1,5 +1,6 @@
 package com.jjj.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,16 +26,23 @@ import java.util.Date;
 @Accessors(chain = true)
 public class User {
     private Integer id;
+
     @NotEmpty
     @Length(min = 6, max = 18)
     private String name;
+
     private Integer age;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
+
     @NotEmpty
     private String password;
+
     @NumberFormat(pattern = "#,###,###.##")
     private Double money;
+
     private String address;
 }
