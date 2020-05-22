@@ -30,6 +30,10 @@
 -->
 <form action="${ctp}/file/upload" enctype="multipart/form-data" method="post">
     头像：<input type="file" name="headerImg"><br/>
+    头像：<input type="file" name="headerImg"><br/>
+    头像：<input type="file" name="headerImg"><br/>
+    头像：<input type="file" name="headerImg"><br/>
+    头像：<input type="file" name="headerImg"><br/>
     用户名：<input type="text" name="name"><br/>
     <input type="submit">
 </form>

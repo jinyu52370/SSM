@@ -57,4 +57,17 @@
           p:maxUploadSize="#{1024 * 1024 * 20}"
           p:defaultEncoding="utf-8"
     />
+
+    <!--拦截器-->
+    <mvc:interceptors>
+        <!--配置某个拦截器；默认拦截所有请求-->
+        <bean class="com.jjj.component.MyFirstInterceptor"/>
+
+        <!--配置某个拦截器；可以有更详细的信息-->
+        <mvc:interceptor>
+            <!--只拦截test01请求-->
+            <mvc:mapping path="/interceptor/test01"/>
+            <bean class="com.jjj.component.MySecondInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

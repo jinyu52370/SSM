@@ -58,4 +58,29 @@ public class FileController {
         }
         return "success";
     }
+
+    @RequestMapping("/multipleFileUpload")
+    public String multipleFileUpload(@RequestParam(value = "name", required = false) String name,
+                         @RequestParam("headerImg") MultipartFile[] files,
+                         Model model){
+
+        for (MultipartFile file : files){
+            System.out.println("上传文件的信息");
+            System.out.println("文件的大小：" + file.getSize());
+            System.out.println("文件项的name(headerImg)：" + file.getName());
+            System.out.println("文件的名字：" + file.getOriginalFilename());
+        }
+
+        for (MultipartFile file : files) {
+            try {
+                if (!file.isEmpty()) {
+                    file.transferTo(new File("F:/_IOFiles/upload/" + file.getOriginalFilename()));
+                    model.addAttribute("msg", "文件上传成功");
+                }
+            } catch (Exception e) {
+                model.addAttribute("msg", "文件上传失败：" + e.getMessage());
+            }
+        }
+        return "success";
+    }
 }
