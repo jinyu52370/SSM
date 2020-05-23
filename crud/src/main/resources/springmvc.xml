@@ -70,4 +70,8 @@
             <bean class="com.jjj.component.MySecondInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
+        p:basename="login"
+    />
 </beans>
