@@ -74,4 +74,23 @@
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
         p:basename="login"
     />
+
+    <!--自定义区域信息解析器-->
+    <!--<bean id="localeResolver" class="com.jjj.component.MyLocaleResolver"/>-->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+    </mvc:interceptors>
+
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!--exceptionMappings：配置哪些异常去哪些页面-->
+        <property name="exceptionMappings">
+            <props>
+                <!--key：异常全类名 value：页面视图名-->
+                <prop key="java.lang.NullPointerException">error</prop>
+            </props>
+        </property>
+        <!--exceptionAttribute：默认值：exception-->
+        <property name="exceptionAttribute" value="e"/>
+    </bean>
 </beans>
