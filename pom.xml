@@ -16,7 +16,7 @@
     <properties>
         <spring.version>5.2.5.RELEASE</spring.version>
         <lombok.version>1.18.10</lombok.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <druid.version>LATEST</druid.version>
         <mysql.version>8.0.12</mysql.version>
         <aspectj.version>1.9.4</aspectj.version>
