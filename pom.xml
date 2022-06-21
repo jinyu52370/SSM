@@ -18,7 +18,7 @@
         <lombok.version>1.18.10</lombok.version>
         <junit.version>4.12</junit.version>
         <druid.version>LATEST</druid.version>
-        <mysql.version>8.0.12</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <aspectj.version>1.9.4</aspectj.version>
         <servlet.version>2.5</servlet.version>
         <tomcat.version>9.0.26</tomcat.version>
