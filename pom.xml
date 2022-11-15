@@ -24,7 +24,7 @@
         <tomcat.version>9.0.26</tomcat.version>
         <jstl.version>1.2</jstl.version>
         <hibernate-validator.version>6.1.2.Final</hibernate-validator.version>
-        <jackson.version>2.10.0</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <fileupload.version>1.4</fileupload.version>
         <commons-io.version>2.6</commons-io.version>
     </properties>
